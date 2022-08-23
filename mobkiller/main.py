@@ -1,13 +1,17 @@
 import pygame
 
-from mobkiller.objects.game import Game
+from mobkiller.game.game import Game
 
-pygame.init()
+def main():
+    pygame.init()
 
-game = Game()
+    game = Game()
 
-while(game.isRunning()):
-    game.update()
-    game.render()
+    while(game.isRunning()):
+        game.update()
+        game.render()
 
-pygame.quit()
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()

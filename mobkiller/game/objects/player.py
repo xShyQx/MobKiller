@@ -9,8 +9,8 @@ from mobkiller.globals import (
 )
 
 class Player(Drawable):
-    def __init__(self, position: Vector2, size: Vector2, color: pygame.Color = (0, 255, 0)):
-        super().__init__(position, size, color)
+    def __init__(self, position: Vector2, size: Vector2, group, color: pygame.Color):
+        super().__init__(position, size, group, color)
         self._speed = PLAYER_BASE_SPEED
 
     def move(self):

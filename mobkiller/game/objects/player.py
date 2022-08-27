@@ -9,24 +9,23 @@ from mobkiller.globals import (
 )
 
 class Player(Drawable):
-    def __init__(self, position: Vector2, size: Vector2, group, color: pygame.Color):
-        super().__init__(position, size, group, color)
-        self._speed = PLAYER_BASE_SPEED
+    def __init__(self, position: Vector2, size: Vector2, color: pygame.Color):
+        super().__init__(position, size, color)
 
-    def move(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT] and self.rect.left > 0:
-            self._center.x -= self._speed
-            self.rect.centerx = self._center.x
-        if keys[pygame.K_RIGHT] and self.rect.right < WINDOW_WIDTH:
-            self._center.x += self._speed
-            self.rect.centerx = self._center.x
-        if keys[pygame.K_UP] and self.rect.top > 0:
-            self._center.y -= self._speed
-            self.rect.centery = self._center.y
-        if keys[pygame.K_DOWN] and self.rect.bottom < WINDOW_HEIGHT:
-            self._center.y += self._speed
-            self.rect.centery = self._center.y
+    #def move(self):
+        #keys = pygame.key.get_pressed()
+        #if keys[pygame.K_LEFT] and self.rect.left > 0:
+        #    self._center.x -= self._speed
+        #    self.rect.centerx = self._center.x
+        #if keys[pygame.K_RIGHT] and self.rect.right < WINDOW_WIDTH:
+        #    self._center.x += self._speed
+        #    self.rect.centerx = self._center.x
+        #if keys[pygame.K_UP] and self.rect.top > 0:
+        #    self._center.y -= self._speed
+        #    self.rect.centery = self._center.y
+        #if keys[pygame.K_DOWN] and self.rect.bottom < WINDOW_HEIGHT:
+        #    self._center.y += self._speed
+        #    self.rect.centery = self._center.y
 
     def update(self):
-        self.move()
+        print("dupa")

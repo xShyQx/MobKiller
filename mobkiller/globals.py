@@ -1,5 +1,13 @@
+# Window
 WINDOW_WIDTH = 600
 WINDOW_HEIGHT = 600
 
+# Player
 PLAYER_SIZE = (20, 35)
 PLAYER_BASE_SPEED = 0.2
+
+# Movement
+UP = 1
+LEFT = 2
+DOWN = 3
+RIGHT = 4

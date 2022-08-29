@@ -2,17 +2,13 @@ from tkinter.tix import WINDOW
 import pygame
 from pygame import Vector2
 
-from mobkiller.game.objects.drawable import Drawable
+from mobkiller.game.objects.creature import Creature
 from mobkiller.globals import PLAYER_BASE_SPEED, WINDOW_HEIGHT, WINDOW_WIDTH
 
-class Player(Drawable):
+class Player(Creature):
     def __init__(self, position: Vector2, size: Vector2, color: pygame.Color):
         super().__init__(position, size, color)
         self._speed = PLAYER_BASE_SPEED
-
-    @property
-    def speed(self):
-        return self._speed
 
     def move(self, direction: int, speed: float):
         super().move(direction, speed)

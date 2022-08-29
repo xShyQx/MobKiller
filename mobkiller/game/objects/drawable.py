@@ -9,7 +9,7 @@ from mobkiller.globals import (
 )
 
 class Drawable(pygame.sprite.Sprite):
-    def __init__(self, position: Vector2, size: Vector2, color: pygame.Color = None, texture = None):
+    def __init__(self, position: Vector2, size: Vector2, color=None, texture=None):
         super().__init__()
         self._center = Vector2(position)
 

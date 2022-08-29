@@ -1,6 +1,7 @@
 import pygame
 from pygame import Vector2
 
+from mobkiller.game.objects.camera import Camera
 from mobkiller.game.objects.background import Background
 from mobkiller.game.objects.player import Player
 from mobkiller.globals import (
@@ -23,9 +24,13 @@ class Game:
         self._bg = Background()
         self._player = Player(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), PLAYER_SIZE, (0, 255, 0))
         self._playerSpeed = PLAYER_BASE_SPEED
+
         self._allSprites = pygame.sprite.Group()
         self._allSprites.add(self._bg)
         self._allSprites.add(self._player)
+
+        self._camera = Camera(self._player, self._bg)
+        self._camera.add(self._bg)
 
     def isRunning(self):
         return self._isRunning
@@ -35,23 +40,8 @@ class Game:
             if event.type == pygame.QUIT:
                 self._isRunning = False
 
-        self.checkMovement()
-        self._allSprites.update()
+        self._camera.update()
 
     def render(self):
         self._allSprites.draw(self._window)
         pygame.display.update()
-
-    def checkMovement(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
-            self.moveCamera(UP, self._playerSpeed)
-        if keys[pygame.K_a]:
-            self.moveCamera(LEFT, self._playerSpeed)
-        if keys[pygame.K_s]:
-            self.moveCamera(DOWN, self._playerSpeed)
-        if keys[pygame.K_d]:
-            self.moveCamera(RIGHT, self._playerSpeed)
-
-    def moveCamera(self, direction: int, playerSpeed: float):
-        pass

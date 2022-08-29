@@ -1,31 +1,32 @@
+from tkinter.tix import WINDOW
 import pygame
 from pygame import Vector2
 
 from mobkiller.game.objects.drawable import Drawable
-from mobkiller.globals import (
-    PLAYER_BASE_SPEED,
-    WINDOW_HEIGHT,
-    WINDOW_WIDTH
-)
+from mobkiller.globals import PLAYER_BASE_SPEED, WINDOW_HEIGHT, WINDOW_WIDTH
 
 class Player(Drawable):
     def __init__(self, position: Vector2, size: Vector2, color: pygame.Color):
         super().__init__(position, size, color)
+        self._speed = PLAYER_BASE_SPEED
 
-    #def move(self):
-        #keys = pygame.key.get_pressed()
-        #if keys[pygame.K_LEFT] and self.rect.left > 0:
-        #    self._center.x -= self._speed
-        #    self.rect.centerx = self._center.x
-        #if keys[pygame.K_RIGHT] and self.rect.right < WINDOW_WIDTH:
-        #    self._center.x += self._speed
-        #    self.rect.centerx = self._center.x
-        #if keys[pygame.K_UP] and self.rect.top > 0:
-        #    self._center.y -= self._speed
-        #    self.rect.centery = self._center.y
-        #if keys[pygame.K_DOWN] and self.rect.bottom < WINDOW_HEIGHT:
-        #    self._center.y += self._speed
-        #    self.rect.centery = self._center.y
+    @property
+    def speed(self):
+        return self._speed
 
-    def update(self):
-        print("dupa")
+    def move(self, direction: int, speed: float):
+        super().move(direction, speed)
+        self.keepInside()
+
+    def keepInside(self):
+        if self.rect.top < 0:
+            self.rect.top = 0
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+        if self.rect.bottom > WINDOW_HEIGHT:
+            self.rect.bottom = WINDOW_HEIGHT
+
+        if self.rect.right > WINDOW_WIDTH:
+            self.rect.right = WINDOW_WIDTH

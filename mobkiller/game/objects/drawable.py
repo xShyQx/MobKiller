@@ -9,7 +9,7 @@ from mobkiller.globals import (
 )
 
 class Drawable(pygame.sprite.Sprite):
-    def __init__(self, position: Vector2, size: Vector2, color=None, texture=None):
+    def __init__(self, position: Vector2, size: Vector2, texture=None, color=None):
         super().__init__()
         self._center = Vector2(position)
 
@@ -20,7 +20,7 @@ class Drawable(pygame.sprite.Sprite):
         if color is None and texture is None:
             self.image.fill((0, 0, 0))
         elif color is None:
-            self.image = pygame.transform.scale(pygame.image.load(texture), size)
+            self.image = pygame.transform.scale(pygame.image.load(str(texture)), size)
         else:
             self.image.fill(color)
 

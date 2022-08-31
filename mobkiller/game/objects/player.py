@@ -1,19 +1,23 @@
-from tkinter.tix import WINDOW
-import pygame
 from pygame import Vector2
 
 from mobkiller.game.objects.creature import Creature
+
+from mobkiller.game.textures.textures import Textures
+
 from mobkiller.globals import (
     PLAYER_BASE_SPEED,
     PLAYER_SIZE,
     WINDOW_HEIGHT,
-    WINDOW_WIDTH
+    WINDOW_WIDTH,
+    LEFT,
+    RIGHT
 )
 
 class Player(Creature):
     def __init__(self, position: Vector2):
-        super().__init__(position, PLAYER_SIZE, (0, 255, 0))
+        super().__init__(position, PLAYER_SIZE, Textures.PLAYER_LEFT)
         self._speed = PLAYER_BASE_SPEED
+        self._direction = LEFT
 
     def move(self, direction: int, speed: float):
         super().move(direction, speed)

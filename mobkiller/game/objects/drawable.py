@@ -20,7 +20,7 @@ class Drawable(pygame.sprite.Sprite):
         if color is None and texture is None:
             self.image.fill((0, 0, 0))
         elif color is None:
-            self.image = pygame.transform.scale(pygame.image.load(str(texture)), size)
+            self.image = pygame.transform.scale(texture, size)
         else:
             self.image.fill(color)
 

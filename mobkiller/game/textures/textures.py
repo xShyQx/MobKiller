@@ -26,8 +26,16 @@ class TexturesMeta(EnumMeta):
 
 class Textures(Enum, metaclass=TexturesMeta):
     BACKGROUND = "bg.png"
-    PLAYER_LEFT = "player_left.png"
-    PLAYER_RIGHT = "player_right.png"
+    PLAYER_LEFT = "player/player_left.png"
+    PLAYER_LEFT2_4 = "player/player_left2-4.png"
+    PLAYER_LEFT3 = "player/player_left3.png"
+    PLAYER_LEFT6_8 = "player/player_left6-8.png"
+    PLAYER_LEFT7 = "player/player_left7.png"
+    PLAYER_RIGHT = "player/player_right.png"
+    PLAYER_RIGHT2_4 = "player/player_right2-4.png"
+    PLAYER_RIGHT3 = "player/player_right3.png"
+    PLAYER_RIGHT6_8 = "player/player_right6-8.png"
+    PLAYER_RIGHT7 = "player/player_right7.png"
 
     def __str__(self):
         return str(PREFIX / self.value)

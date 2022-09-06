@@ -16,12 +16,28 @@ from mobkiller.globals import (
 class Player(Creature):
     def __init__(self, position: Vector2):
         super().__init__(position, PLAYER_SIZE, Textures.PLAYER_LEFT)
+
+        self._isRunning = False
+
         self._speed = PLAYER_BASE_SPEED
         self._direction = LEFT
 
-    def move(self, direction: int, speed: float):
-        super().move(direction, speed)
-        self.keepInside()
+    @property
+    def direction(self):
+        return self._direction
+    @direction.setter
+    def direction(self, value):
+        self._direction = value
+
+    def update(self, direction=None):
+        if direction is not None:
+            super().move(direction, self._speed)
+            self.keepInside()
+
+        if self.direction == LEFT:
+            self.texture = Textures.PLAYER_LEFT
+        else:
+            self.texture = Textures.PLAYER_RIGHT
 
     def keepInside(self):
         if self.rect.top < 0:

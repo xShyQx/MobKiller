@@ -22,25 +22,12 @@ class Game:
         self._bg = Background()
         self._player = Player(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
 
-        self._allSprites = pygame.sprite.Group()
-        self._allSprites.add(self._bg)
-        self._allSprites.add(self._player)
-
         self._camera = Camera(self._player, self._bg)
         self._camera.add(self._bg)
 
         for _ in range(5):
-            self.addEnemy()
-
-    def addEnemy(self):
-        enemy = self.spawnEnemy()
-        self._allSprites.add(enemy)
-        self._camera.add(enemy)
-
-    def spawnEnemy(self):
-        randX = randint(int(self._bg.rect.left + (ENEMY_SIZE.x / 2)), int(self._bg.rect.right - (ENEMY_SIZE.x / 2)))
-        randY = randint(int(self._bg.rect.top + (ENEMY_SIZE.y / 2)), int(self._bg.rect.bottom - (ENEMY_SIZE.y / 2)))
-        return Enemy((randX, randY))
+            enemy = self.spawnEnemy()
+            self._camera.add(enemy)
 
     def isRunning(self):
         return self._isRunning
@@ -53,5 +40,10 @@ class Game:
         self._camera.update()
 
     def render(self):
-        self._allSprites.draw(self._window)
+        self._camera.draw(self._window)
         pygame.display.update()
+
+    def spawnEnemy(self):
+        randX = randint(int(self._bg.rect.left + (ENEMY_SIZE.x / 2)), int(self._bg.rect.right - (ENEMY_SIZE.x / 2)))
+        randY = randint(int(self._bg.rect.top + (ENEMY_SIZE.y / 2)), int(self._bg.rect.bottom - (ENEMY_SIZE.y / 2)))
+        return Enemy((randX, randY))

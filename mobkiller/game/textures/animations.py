@@ -12,7 +12,7 @@ class Animations(Enum):
         Textures.PLAYER_LEFT7,
         Textures.PLAYER_LEFT6_8
     ]
-    
+
     PLAYER_MOVE_RIGHT_ANIMATION = [
         Textures.PLAYER_RIGHT,
         Textures.PLAYER_RIGHT2_4,
@@ -22,4 +22,22 @@ class Animations(Enum):
         Textures.PLAYER_RIGHT6_8,
         Textures.PLAYER_RIGHT7,
         Textures.PLAYER_RIGHT6_8
+    ]
+
+    PLAYER_ATTACK_LEFT_ANIMATION = [
+        Textures.PLAYER_LEFT_A1,
+        Textures.PLAYER_LEFT_A2,
+        Textures.PLAYER_LEFT_A3,
+        Textures.PLAYER_LEFT_A4,
+        Textures.PLAYER_LEFT_A5,
+        Textures.PLAYER_LEFT_A6
+    ]
+
+    PLAYER_ATTACK_RIGHT_ANIMATION = [
+        Textures.PLAYER_RIGHT_A1,
+        Textures.PLAYER_RIGHT_A2,
+        Textures.PLAYER_RIGHT_A3,
+        Textures.PLAYER_RIGHT_A4,
+        Textures.PLAYER_RIGHT_A5,
+        Textures.PLAYER_RIGHT_A6
     ]

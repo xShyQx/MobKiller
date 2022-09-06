@@ -22,6 +22,8 @@ class Game:
         self._bg = Background()
         self._player = Player(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
 
+        self._mousePressed: tuple[bool, bool, bool] | tuple[bool, bool, bool, bool, bool]
+
         self._camera = Camera(self._player, self._bg)
         self._camera.add(self._bg)
 
@@ -37,11 +39,15 @@ class Game:
             if event.type == pygame.QUIT:
                 self._isRunning = False
 
-        self._camera.update()
+        self.updateMouse()
+        self._camera.update(self._mousePressed[0])
 
     def render(self):
         self._camera.draw(self._window)
         pygame.display.update()
+
+    def updateMouse(self):
+        self._mousePressed = pygame.mouse.get_pressed()
 
     def spawnEnemy(self):
         randX = randint(int(self._bg.rect.left + (ENEMY_SIZE.x / 2)), int(self._bg.rect.right - (ENEMY_SIZE.x / 2)))

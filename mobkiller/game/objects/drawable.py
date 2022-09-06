@@ -13,7 +13,7 @@ class Drawable(pygame.sprite.Sprite):
         super().__init__()
         self._center = Vector2(position)
         self._size = size
-        self._texture: None
+        self._texture: pygame.Surface
 
         self.image = pygame.Surface(self._size)
         self.rect = self.image.get_rect()
@@ -30,8 +30,9 @@ class Drawable(pygame.sprite.Sprite):
     def texture(self):
         return self._texture
     @texture.setter
-    def texture(self, value):
+    def texture(self, value: pygame.Surface):
         self._texture = value
+        self._size = self._texture.get_size()
         self.image = pygame.transform.scale(self._texture, self._size)
 
     def move(self, direction: int, speed: float):

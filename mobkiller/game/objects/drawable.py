@@ -9,22 +9,32 @@ from mobkiller.globals import (
 )
 
 class Drawable(pygame.sprite.Sprite):
-    def __init__(self, position: Vector2, size: Vector2, texture=None, color=None):
+    def __init__(self, texture=None, color=None, size: Vector2 = None, topleft: Vector2 = None, center: Vector2 = None):
         super().__init__()
-        self._center = Vector2(position)
-        self._size = size
-        self._texture: pygame.Surface
 
-        self.image = pygame.Surface(self._size)
-        self.rect = self.image.get_rect()
-        self.rect.center = self._center
+        if texture is None and size is None:
+            raise NotImplementedError
+        if topleft is None and center is None:
+            raise NotImplementedError
 
-        if color is None and texture is None:
-            self.image.fill((0, 0, 0))
-        elif color is None:
+        if texture is not None:
             self.texture = texture
         else:
-            self.image.fill(color)
+            self._size = size
+            self.image = pygame.Surface(self._size)
+            if color is None:
+                self.image.fill((0, 0, 0))
+            else:
+                self.image.fill(color)
+
+        if center is None:
+            self._center = topleft + Vector2(self._size.x / 2, self._size.y / 2)
+        else:
+            self._center = center
+
+        self.rect = self.image.get_rect()
+        self.rect.centerx = self._center.x
+        self.rect.centery = self._center.y
 
     @property
     def texture(self):
@@ -32,7 +42,7 @@ class Drawable(pygame.sprite.Sprite):
     @texture.setter
     def texture(self, value: pygame.Surface):
         self._texture = value
-        self._size = self._texture.get_size()
+        self._size = Vector2(self._texture.get_size())
         self.image = pygame.transform.scale(self._texture, self._size)
 
     def move(self, direction: int, speed: float):

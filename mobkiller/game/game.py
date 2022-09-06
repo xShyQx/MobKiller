@@ -16,9 +16,8 @@ from mobkiller.globals import (
 class Game:
     def __init__(self):
         self._window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-        self._isRunning = True
         pygame.display.set_caption("Mob Killer")
-
+        
         self._bg = Background()
         self._player = Player(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
 
@@ -26,6 +25,8 @@ class Game:
 
         self._camera = Camera(self._player, self._bg)
         self._camera.add(self._bg)
+
+        self._isRunning = True
 
         for _ in range(5):
             enemy = self.spawnEnemy()

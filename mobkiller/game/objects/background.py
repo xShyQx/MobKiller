@@ -9,4 +9,5 @@ from mobkiller.globals import (
 
 class Background(Drawable):
     def __init__(self):
-        super().__init__((WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), (1000, 1000), texture=Textures.BACKGROUND)
+        super().__init__(texture=Textures.BACKGROUND, topleft=(0, 0))
+        print(self._size)

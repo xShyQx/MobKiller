@@ -3,8 +3,8 @@ from pygame import Vector2
 from mobkiller.game.objects.drawable import Drawable
 
 class Creature(Drawable):
-    def __init__(self, position: Vector2, size: Vector2, texture=None, color=None):
-        super().__init__(position, size, texture, color)
+    def __init__(self, center: Vector2, texture=None, color=None, size: Vector2 = None):
+        super().__init__(texture, color, size, center)
         self._speed: float
 
     @property

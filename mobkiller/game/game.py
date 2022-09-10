@@ -27,8 +27,6 @@ class Game:
         self._camera = Camera(self._bg)
         self._camera.add(self._player)
 
-        self._mousePressed: tuple[bool, bool, bool] | tuple[bool, bool, bool, bool, bool]
-
         for _ in range(5):
             enemy = self.spawnEnemy()
             self._camera.add(enemy)
@@ -41,8 +39,6 @@ class Game:
             if event.type == pygame.QUIT:
                 self._isRunning = False
 
-        self.updateMouse()
-
         self._player.update()
         self._camera.centerTarget(self._player)
 
@@ -51,9 +47,6 @@ class Game:
         pygame.display.update()
         
         self._clock.tick(60)
-
-    def updateMouse(self):
-        self._mousePressed = pygame.mouse.get_pressed()
 
     def spawnEnemy(self):
         randX = randint(int(self._bg.rect.left + (ENEMY_SIZE.x / 2)), int(self._bg.rect.right - (ENEMY_SIZE.x / 2)))

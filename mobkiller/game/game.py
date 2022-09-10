@@ -17,16 +17,17 @@ class Game:
     def __init__(self):
         self._window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Mob Killer")
+        self._clock = pygame.time.Clock()
+        self._isRunning = True
         
         self._bg = Background()
-        self._player = Player(Vector2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+        self._player = Player()
+        Player.borders = self._bg.rect
+
+        self._camera = Camera(self._bg)
+        self._camera.add(self._player)
 
         self._mousePressed: tuple[bool, bool, bool] | tuple[bool, bool, bool, bool, bool]
-
-        self._camera = Camera(self._player, self._bg)
-        self._camera.add(self._bg)
-
-        self._isRunning = True
 
         for _ in range(5):
             enemy = self.spawnEnemy()
@@ -41,11 +42,15 @@ class Game:
                 self._isRunning = False
 
         self.updateMouse()
-        self._camera.update(self._mousePressed[0])
+
+        self._player.update()
+        self._camera.centerTarget(self._player)
 
     def render(self):
         self._camera.draw(self._window)
         pygame.display.update()
+        
+        self._clock.tick(60)
 
     def updateMouse(self):
         self._mousePressed = pygame.mouse.get_pressed()

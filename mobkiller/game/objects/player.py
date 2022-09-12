@@ -28,14 +28,18 @@ class Player(Creature):
         self._direction = Vector2()
 
         self._faceDirection = "left"
+        self._centerCamera = Vector2(self.rect.center)
         self._curMoveFrame = 0
         self._moveFrames = PLAYER_MOVE_FRAMES
         self._curAttackFrame = 0
         self._attackFrames = PLAYER_ATTACK_FRAMES
 
+    @property
+    def centerCamera(self):
+        return self._centerCamera
+
     def update(self):
         self.move()
-        self.keepInside()
         self.attack()
 
         if self._isAttacking:
@@ -44,6 +48,8 @@ class Player(Creature):
             self.moveAnimation()
         else:
             self.stayAnimation()
+
+        self.keepInside()
 
     def move(self):
         self._direction.x = 0
@@ -54,18 +60,19 @@ class Player(Creature):
             self._direction.y = -1
         if keys[pygame.K_a]:
             self._direction.x = -1
-            self.texture = Textures.PLAYER_LEFT
             self._faceDirection = "left"
         if keys[pygame.K_s]:
             self._direction.y = 1
         if keys[pygame.K_d]:
             self._direction.x = 1
-            self.texture = Textures.PLAYER_RIGHT
             self._faceDirection = "right"
 
         self._isMoving = self._direction.x != 0 or self._direction.y != 0
 
         self.rect.center += self._direction * self._speed
+
+        if self._isMoving:
+            self._centerCamera += self._direction * self._speed
 
     def keepInside(self):
         if self.rect.top < Player.borders.top:
@@ -98,16 +105,20 @@ class Player(Creature):
             self._curMoveFrame += 0.5
 
     def attackAnimation(self):
+        self._curMoveFrame = 0
         if self._curAttackFrame >= PLAYER_ATTACK_FRAMES:
             self._isAttacking = False
             self._curAttackFrame = 0
 
-        if self._isAttacking:
-            if self._faceDirection == "left":
-                self.texture = Animations.PLAYER_ATTACK_LEFT_ANIMATION.value[floor(self._curAttackFrame)]
-            elif self._faceDirection == "right":
-                self.texture = Animations.PLAYER_ATTACK_RIGHT_ANIMATION.value[floor(self._curAttackFrame)]
-            self._curAttackFrame += 0.5
+        if self._faceDirection == "left":
+            right = self.rect.right
+            self.texture = Animations.PLAYER_ATTACK_LEFT_ANIMATION.value[floor(self._curAttackFrame)]
+            self.rect.right = right
+        elif self._faceDirection == "right":
+            left = self.rect.left
+            self.texture = Animations.PLAYER_ATTACK_RIGHT_ANIMATION.value[floor(self._curAttackFrame)]
+            self.rect.left = left
+        self._curAttackFrame += 0.5
 
     def stayAnimation(self):
         if self._faceDirection == "left":

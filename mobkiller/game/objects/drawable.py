@@ -16,7 +16,10 @@ class Drawable(pygame.sprite.Sprite):
             raise NotImplementedError
 
         if texture is not None:
-            self.texture = texture
+            self._texture = texture
+            self._size = Vector2(self._texture.get_size())
+            self.image = pygame.transform.scale(self._texture, self._size)
+            self.rect = self.image.get_rect(center = center)
         else:
             self._size = size
             self.image = pygame.Surface(self._size)
@@ -35,3 +38,5 @@ class Drawable(pygame.sprite.Sprite):
         self._texture = value
         self._size = Vector2(self._texture.get_size())
         self.image = pygame.transform.scale(self._texture, self._size)
+        center = self.rect.center
+        self.rect = self.image.get_rect(center = center)

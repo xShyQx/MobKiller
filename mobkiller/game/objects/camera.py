@@ -1,3 +1,4 @@
+from tkinter.tix import WINDOW
 import pygame
 from pygame import Vector2
 
@@ -16,13 +17,12 @@ class Camera(pygame.sprite.Group):
         self._offset = Vector2()
 
     def centerTarget(self, target: Player):
-        self._offset.x = target.rect.centerx - WINDOW_CENTER[0]
+        self._offset = target.centerCamera - Vector2(WINDOW_CENTER)
+
         if self._offset.x < self._bg.rect.left:
             self._offset.x = self._bg.rect.left
         if self._offset.x > self._bg.rect.right - WINDOW_WIDTH:
             self._offset.x = self._bg.rect.right - WINDOW_WIDTH
-
-        self._offset.y = target.rect.centery - WINDOW_CENTER[1]
         if self._offset.y < self._bg.rect.top:
             self._offset.y = self._bg.rect.top
         if self._offset.y > self._bg.rect.bottom - WINDOW_HEIGHT:

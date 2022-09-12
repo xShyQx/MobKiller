@@ -11,6 +11,7 @@ from mobkiller.globals import (
     PLAYER_BASE_SPEED,
     PLAYER_MOVE_FRAMES,
     PLAYER_ATTACK_FRAMES,
+    WINDOW_CENTER,
     WINDOW_HEIGHT,
     WINDOW_WIDTH,
 )
@@ -35,8 +36,21 @@ class Player(Creature):
         self._attackFrames = PLAYER_ATTACK_FRAMES
 
     @property
+    def isAttacking(self):
+        return self._isAttacking
+
+    @property
     def centerCamera(self):
         return self._centerCamera
+
+    @property
+    def faceDirection(self):
+        return self._faceDirection
+
+    def reset(self):
+        self.texture = Textures.PLAYER_LEFT
+        self.rect.center = WINDOW_CENTER
+        self._centerCamera = self.rect.center
 
     def update(self):
         self.move()
